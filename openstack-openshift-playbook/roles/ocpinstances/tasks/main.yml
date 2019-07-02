@@ -53,9 +53,8 @@
      image: "{{ hostvars[inventory_hostname]['image'] }}"
      key_name: "{{ ospuser }}"
      flavor: "{{ hostvars[inventory_hostname]['flavor'] }}"
-     network: ocp4_network
-     #nics:
-     #  - port-name: "{{ inventory_hostname }}"
+     nics:
+       - port-name: "{{ inventory_hostname }}"
      wait: yes
      auto_ip: no
      userdata: "{{ lookup('file', hostvars[inventory_hostname]['ignfile']) | string }}"
