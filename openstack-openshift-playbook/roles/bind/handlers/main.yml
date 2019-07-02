@@ -1,0 +1,6 @@
+---
+# handler for restarting named
+- name: restart named
+  service:
+    name: named
+    state: restarted

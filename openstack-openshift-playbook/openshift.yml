@@ -1,0 +1,8 @@
+---
+# file: openshift.yml
+- hosts: openshift
+  gather_facts: false
+  vars_files:
+    - "group_vars/openstack"
+  roles:
+    - ocpinstances

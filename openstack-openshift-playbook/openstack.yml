@@ -1,0 +1,6 @@
+---
+# file: openstack.yml
+- hosts: openstack
+  gather_facts: false
+  roles:
+    - openstack

@@ -1,0 +1,109 @@
+---
+# file: roles/openstack/tasks/main.yml
+- name: OSP Credentials
+  set_fact:
+    os_cloud:
+      auth:
+          auth_url: "{{ auth_url }}"
+          username: "{{ adminuser }}"
+          password: "{{ adminpass }}"
+          project_name: "{{ adminproject }}"
+          user_domain_name: "{{ user_domain }}"
+          project_domain_name: "{{ project_domain }}"
+      auth_type: password
+      region_name: "{{ region }}"
+      auth_version: "{{ auth_api }}"
+- name: Create project
+  os_project:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ project }}"
+     description: OCP 4 UPI
+     domain_id: "{{ domain }}"
+     enabled: True
+- name: Create user
+  os_user:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ ospuser }}"
+     password: "{{ osppassword }}"
+     email: "{{ email }}"
+     domain: "{{ domain }}"
+     default_project: "{{ project }}"
+- name: Associate role
+  os_user_role:
+     cloud: "{{ os_cloud }}"
+     user: "{{ ospuser }}"
+     role: admin
+     project: "{{ project }}"
+- name: Associate role
+  os_user_role:
+     cloud: "{{ os_cloud }}"
+     user: "{{ ospuser }}"
+     role: member
+     project: "{{ project }}"
+- name: TCP Security Group Rule
+  os_security_group_rule:
+     cloud: "{{ os_cloud }}"
+     security_group: default
+     project: "{{ project }}"
+     protocol: tcp
+     remote_ip_prefix: 0.0.0.0/0
+- name: UDP Security Group Rule
+  os_security_group_rule:
+     cloud: "{{ os_cloud }}"
+     security_group: default
+     project: "{{ project }}"
+     protocol: udp
+     remote_ip_prefix: 0.0.0.0/0
+- name: ICMP Security Group Rule
+  os_security_group_rule:
+     cloud: "{{ os_cloud }}"
+     security_group: default
+     project: "{{ project }}"
+     protocol: icmp
+     remote_ip_prefix: 0.0.0.0/0
+- name: SSH Security Group Rule
+  os_security_group_rule:
+     cloud: "{{ os_cloud }}"
+     security_group: default
+     project: "{{ project }}"
+     protocol: tcp
+     port_range_min: 22
+     port_range_max: 22
+     remote_ip_prefix: 0.0.0.0/0
+- name: Add network
+  os_network:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ network_name }}"
+     project: "{{ project }}"
+     shared: no
+     external: false
+- name: Add subnet to network
+  os_subnet:
+     state: present
+     cloud: "{{ os_cloud }}"
+     project: "{{ project }}"
+     network_name: "{{ network_name }}"
+     name: "{{ subnet_name }}"
+     cidr: "{{ subnet }}{{ cidr }}"
+     gateway_ip: "{{ gateway_ip }}"
+     allocation_pool_start: "{{ allocation_pool_start }}"
+     allocation_pool_end: "{{ allocation_pool_end }}"
+     ip_version: 4
+     dns_nameservers:
+        - "{{ hostvars['api'].fixed_ip }}"
+        - 10.10.11.2
+        - 10.10.11.3
+        - 10.10.11.4
+- name: Create router for private and external routing
+  os_router:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ router_name }}"
+     project: "{{ project }}"
+     network: public
+     enable_snat: yes
+     interfaces:
+        - "{{ subnet_name }}"

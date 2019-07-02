@@ -1,0 +1,12 @@
+zone "{{ domain }}" {
+    type master;
+    file "/etc/named/zones/db.{{ domain }}";
+};
+zone "{{ rev_domain }}" {
+    type master;
+    file "/etc/named/zones/db.{{ rev_domain }}"; 
+    };
+zone "{{ wild_domain }}" {
+    type master;
+    file "/etc/named/zones/db.{{ wild_domain }}"; 
+    };

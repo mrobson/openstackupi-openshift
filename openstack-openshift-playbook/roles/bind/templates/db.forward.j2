@@ -1,0 +1,31 @@
+$ORIGIN .
+$TTL 60
+{{ domain }}. 60   IN    SOA    api.{{ domain }}. admin.{{ domain }}. (
+                                            7           ; Serial
+                                            86400       ; Refresh
+                                            7200        ; Retry
+                                            2419200     ; Expire
+                                            1    )      ; Negative Cache TTL
+                               ; name servers - NS records
+                               NS    api.{{ domain }}.
+                                A    {{ hostvars['api'].fixed_ip }}
+;
+
+$ORIGIN mrobson.mattshift.lab.
+$TTL 1
+; 10.10.11.0/24 - A records
+api.{{ domain }}.          IN    A    {{ hostvars['api'].fixed_ip }}
+api-int.{{ domain }}.      IN    A    {{ hostvars['api'].fixed_ip }}
+bootstrap.{{ domain }}.    IN    A    {{ hostvars['bootstrap'].fixed_ip }}
+master-0.{{ domain }}.     IN    A    {{ hostvars['master-0'].fixed_ip }}
+master-1.{{ domain }}.     IN    A    {{ hostvars['master-1'].fixed_ip }}
+master-2.{{ domain }}.     IN    A    {{ hostvars['master-2'].fixed_ip }}
+worker-0.{{ domain }}.     IN    A    {{ hostvars['worker-0'].fixed_ip }}
+worker-1.{{ domain }}.     IN    A    {{ hostvars['worker-1'].fixed_ip }}
+worker-2.{{ domain }}.     IN    A    {{ hostvars['worker-2'].fixed_ip }}
+_etcd-server-ssl._tcp.{{ domain }}.  86400   IN   SRV 0 10 2380 etcd-0.{{ domain }}.
+_etcd-server-ssl._tcp.{{ domain }}.  86400   IN   SRV 0 10 2380 etcd-1.{{ domain }}.
+_etcd-server-ssl._tcp.{{ domain }}.  86400   IN   SRV 0 10 2380 etcd-2.{{ domain }}.
+etcd-0.{{ domain }}.       IN   CNAME master-0.{{ domain }}.
+etcd-1.{{ domain }}.       IN   CNAME master-1.{{ domain }}.
+etcd-2.{{ domain }}.       IN   CNAME master-2.{{ domain }}.

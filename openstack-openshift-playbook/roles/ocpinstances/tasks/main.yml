@@ -1,0 +1,63 @@
+---
+# file: roles/ocpinstances/tasks/main.yml
+- name: OSP Credentials
+  set_fact:
+    os_cloud:
+      auth:
+          auth_url: "{{ auth_url }}"
+          username: "{{ ospuser }}"
+          password: "{{ osppassword }}"
+          project_name: "{{ project }}"
+          user_domain_name: "{{ user_domain }}"
+          project_domain_name: "{{ project_domain }}"
+      auth_type: password
+      region_name: "{{ region }}"
+      auth_version: "{{ auth_api }}"
+- name: Add keypair
+  os_keypair:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ ospuser }}"
+     public_key_file: "{{ ssh_key }}"
+- name: Create static port allocations
+  os_port:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ inventory_hostname }}"
+     network: "{{ network_name }}"
+     fixed_ips:
+       - ip_address: "{{ hostvars[inventory_hostname]['fixed_ip'] }}"
+- name: Create floating instances
+  os_server:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ inventory_hostname }}"
+     image: "{{ hostvars[inventory_hostname]['image'] }}"
+     key_name: "{{ ospuser }}"
+     flavor: "{{ hostvars[inventory_hostname]['flavor'] }}"
+     wait: yes
+     nics:
+       - port-name: "{{ inventory_hostname }}"
+     userdata: "{{ lookup('file', hostvars[inventory_hostname]['ignfile']) | string }}"
+     floating_ips:
+       - "{{ hostvars[inventory_hostname]['floating_ip'] }}"
+     meta:
+       hostname: "{{ inventory_hostname }}"
+  when: hostvars[inventory_hostname]['floating_ip'] is defined
+- name: Create static instances
+  os_server:
+     state: present
+     cloud: "{{ os_cloud }}"
+     name: "{{ inventory_hostname }}"
+     image: "{{ hostvars[inventory_hostname]['image'] }}"
+     key_name: "{{ ospuser }}"
+     flavor: "{{ hostvars[inventory_hostname]['flavor'] }}"
+     network: ocp4_network
+     #nics:
+     #  - port-name: "{{ inventory_hostname }}"
+     wait: yes
+     auto_ip: no
+     userdata: "{{ lookup('file', hostvars[inventory_hostname]['ignfile']) | string }}"
+     meta:
+       hostname: "{{ inventory_hostname }}"
+  when: hostvars[inventory_hostname]['floating_ip'] is undefined

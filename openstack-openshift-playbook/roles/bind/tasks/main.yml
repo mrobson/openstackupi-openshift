@@ -1,0 +1,62 @@
+---
+# file: roles/bind/tasks/main.yml
+- name: Install bind
+  yum:
+    name:
+      - bind
+      - bind-utils
+    state: present
+- name: Copy named conf
+  template:
+    src: named.conf.j2
+    dest: /etc/named.conf
+    owner: root
+    group: named
+    mode: 0660
+  notify: restart named
+- name: Make named directory
+  file:
+    path: /etc/named
+    state: directory
+    owner: root
+    group: named
+    mode: 0750
+- name: Copy named conf local
+  template:
+    src: named.conf.local.j2
+    dest: /etc/named/named.conf.local
+    owner: root
+    group: named
+    mode: 0640
+  notify: restart named
+- name: Make zones dir
+  file:
+    path: /etc/named/zones
+    state: directory
+    owner: root
+    group: named
+    mode: 0750
+- name: Copy forward zone
+  template:
+    src: db.forward.j2
+    dest: /etc/named/zones/db.{{ domain }}
+    owner: root
+    group: named
+    mode: 0640
+  notify: restart named
+- name: Copy reverse zone
+  template:
+    src: db.reverse.j2
+    dest: /etc/named/zones/db.{{ rev_domain }}
+    owner: root
+    group: named
+    mode: 0640
+  notify: restart named
+- name: Copy wildcard zone
+  template:
+    src: db.wild.j2
+    dest: /etc/named/zones/db.{{ wild_domain }}
+    owner: root
+    group: named
+    mode: 0640
+  notify: restart named
