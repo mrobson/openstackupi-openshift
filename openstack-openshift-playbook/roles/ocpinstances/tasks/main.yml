@@ -14,6 +14,7 @@
       region_name: "{{ region }}"
       auth_version: "{{ auth_api }}"
 - name: Add keypair
+  run_once: true
   os_keypair:
      state: present
      cloud: "{{ os_cloud }}"
