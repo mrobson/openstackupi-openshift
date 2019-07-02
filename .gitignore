@@ -1,1 +1,5 @@
-openshift-install
+./openshift-install
+./installer
+./openstack-openshift-playbook/roles/loadbalancer/files/bootstrap.ign
+./openstack-openshift-playbook/roles/ocpinstances/files/master.ign
+./openstack-openshift-playbook/roles/ocpinstances/files/worker.ign
