@@ -1,9 +1,0 @@
-user: centos
-domain: mrobson.mattshift.lab
-rev_domain: 11.10.10.in-addr.arpa
-wild_domain: apps.mrobson.mattshift.lab
-subnet: 10.10.11.0
-cidr: /24
-utility_ip: 10.10.11.10
-forward_dns: 10.5.30.45
-project: mrobsonocp4
