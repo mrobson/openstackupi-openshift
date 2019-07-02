@@ -3,3 +3,6 @@ installer
 openstack-openshift-playbook/roles/loadbalancer/files/bootstrap.ign
 openstack-openshift-playbook/roles/ocpinstances/files/master.ign
 openstack-openshift-playbook/roles/ocpinstances/files/worker.ign
+openstack-upi-install-config.yml
+openstack-openshift-playbook/group_vars/all
+openstack-openshift-playbook/group_vars/openstack
