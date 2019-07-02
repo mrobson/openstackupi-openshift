@@ -20,6 +20,6 @@ $TTL 1
 {{ hostvars['master-0'].fixed_ip.split(".")[3] }}   IN  PTR master-0.{{ domain }}.
 {{ hostvars['master-1'].fixed_ip.split(".")[3] }}   IN  PTR master-1.{{ domain }}.
 {{ hostvars['master-2'].fixed_ip.split(".")[3] }}   IN  PTR master-2.{{ domain }}.
-{{ hostvars['master-0'].fixed_ip.split(".")[3] }}   IN  PTR worker-0.{{ domain }}.
+{{ hostvars['worker-0'].fixed_ip.split(".")[3] }}   IN  PTR worker-0.{{ domain }}.
 {{ hostvars['worker-1'].fixed_ip.split(".")[3] }}   IN  PTR worker-1.{{ domain }}.
 {{ hostvars['worker-2'].fixed_ip.split(".")[3] }}   IN  PTR worker-2.{{ domain }}.
