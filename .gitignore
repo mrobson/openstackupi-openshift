@@ -1,9 +1,9 @@
 openshift-install
 installer
 openstack-openshift-playbook/roles/loadbalancer/files/bootstrap.ign
-openstack-openshift-playbook/roles/ocpinstances/files/master.ign
-openstack-openshift-playbook/roles/ocpinstances/files/worker.ign
-openstack-openshift-playbook/roles/ocpinstances/files/bootstrap-append.ign
+openstack-openshift-playbook/roles/openshift/files/master.ign
+openstack-openshift-playbook/roles/openshift/files/worker.ign
+openstack-openshift-playbook/roles/openshift/files/bootstrap-append.ign
 openstack-upi-install-config.yml
 openstack-openshift-playbook/group_vars/all
 openstack-openshift-playbook/group_vars/openstack
