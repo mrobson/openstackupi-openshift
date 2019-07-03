@@ -39,3 +39,4 @@
     name: "{{ floater.floating_ip.floating_ip_address }}"
     groups: utility
     ansible_host: "{{ floater.floating_ip.floating_ip_address }}"
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
