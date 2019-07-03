@@ -1,1 +1,0 @@
-{"ignition":{"config":{"append":[{"source":"http://10.37.197.26:8000/bootstrap.ign","verification":{}}]},"security":{},"timeouts":{},"version":"2.2.0"},"networkd":{},"passwd":{},"storage":{},"systemd":{}}

@@ -1,5 +1,9 @@
 ---
 # file: roles/bind/tasks/main.yml
+- name: Wait 300 seconds, with a 30 second delay, for ssh on the apiserver to come up
+  wait_for_connection:
+    delay: 30
+    timeout: 300
 - name: Copy resolv.conf to temp backup
   copy:
     src: /etc/resolv.conf
@@ -35,7 +39,6 @@
     owner: root
     group: named
     mode: 0660
-  notify: restart named
 - name: Make named directory
   file:
     path: /etc/named
@@ -50,7 +53,6 @@
     owner: root
     group: named
     mode: 0640
-  notify: restart named
 - name: Make zones dir
   file:
     path: /etc/named/zones
@@ -65,7 +67,6 @@
     owner: root
     group: named
     mode: 0640
-  notify: restart named
 - name: Copy reverse zone
   template:
     src: db.reverse.j2
@@ -73,7 +74,6 @@
     owner: root
     group: named
     mode: 0640
-  notify: restart named
 - name: Copy wildcard zone
   template:
     src: db.wild.j2
@@ -81,4 +81,7 @@
     owner: root
     group: named
     mode: 0640
-  notify: restart named
+- name: restart named
+  service:
+    name: named
+    state: restarted
