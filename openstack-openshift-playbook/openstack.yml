@@ -1,6 +1,6 @@
 ---
 # file: openstack.yml
-- include: openstack_cloud_facts.yml
+- import_playbook: openstack_cloud_facts.yml
 - hosts: openstack
   gather_facts: false
   roles:
