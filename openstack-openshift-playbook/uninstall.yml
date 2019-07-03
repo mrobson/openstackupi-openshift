@@ -1,6 +1,6 @@
 ---
 # file: uninstall.yml
-- include: openstack_cloud_facts.yml
+- import_playbook: openstack_cloud_facts.yml
 - hosts: uninstall
   gather_facts: false
   vars_files:
