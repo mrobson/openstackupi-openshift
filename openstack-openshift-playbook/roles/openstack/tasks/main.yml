@@ -21,6 +21,12 @@
      description: OCP 4 UPI
      domain_id: "{{ domain }}"
      enabled: True
+- name: Change project quota
+  os_quota:
+     cloud: "{{ os_cloud }}"
+     name: "{{ project }}"
+     cores: 100
+     ram: 120000
 - name: Create user
   os_user:
      state: present
