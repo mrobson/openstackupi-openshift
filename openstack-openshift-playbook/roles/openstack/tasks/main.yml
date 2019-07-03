@@ -1,8 +1,8 @@
 ---
 # file: roles/openstack/tasks/main.yml
-- name: OSP Credentials
+- name: OSP Admin Credentials
   set_fact:
-    os_cloud:
+    os_admin:
       auth:
           auth_url: "{{ auth_url }}"
           username: "{{ adminuser }}"
@@ -13,24 +13,37 @@
       auth_type: password
       region_name: "{{ region }}"
       auth_version: "{{ auth_api }}"
+- name: OSP Project Credentials
+  set_fact:
+    os_project:
+      auth:
+          auth_url: "{{ auth_url }}"
+          username: "{{ ospuser }}"
+          password: "{{ osppassword }}"
+          project_name: "{{ project }}"
+          user_domain_name: "{{ user_domain }}"
+          project_domain_name: "{{ project_domain }}"
+      auth_type: password
+      region_name: "{{ region }}"
+      auth_version: "{{ auth_api }}"
 - name: Create project
   os_project:
      state: present
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      name: "{{ project }}"
      description: OCP 4 UPI
      domain_id: "{{ domain }}"
      enabled: True
 - name: Change project quota
   os_quota:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      name: "{{ project }}"
      cores: 100
      ram: 120000
 - name: Create user
   os_user:
      state: present
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      name: "{{ ospuser }}"
      password: "{{ osppassword }}"
      email: "{{ email }}"
@@ -38,40 +51,46 @@
      default_project: "{{ project }}"
 - name: Associate role
   os_user_role:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      user: "{{ ospuser }}"
      role: admin
      project: "{{ project }}"
 - name: Associate role
   os_user_role:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      user: "{{ ospuser }}"
      role: member
      project: "{{ project }}"
+- name: Add keypair
+  os_keypair:
+     state: present
+     cloud: "{{ os_project }}"
+     name: "{{ ospuser }}"
+     public_key_file: "{{ ssh_key }}"
 - name: TCP Security Group Rule
   os_security_group_rule:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      security_group: default
      project: "{{ project }}"
      protocol: tcp
      remote_ip_prefix: 0.0.0.0/0
 - name: UDP Security Group Rule
   os_security_group_rule:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      security_group: default
      project: "{{ project }}"
      protocol: udp
      remote_ip_prefix: 0.0.0.0/0
 - name: ICMP Security Group Rule
   os_security_group_rule:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      security_group: default
      project: "{{ project }}"
      protocol: icmp
      remote_ip_prefix: 0.0.0.0/0
 - name: SSH Security Group Rule
   os_security_group_rule:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      security_group: default
      project: "{{ project }}"
      protocol: tcp
@@ -81,7 +100,7 @@
 - name: Add network
   os_network:
      state: present
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      name: "{{ network_name }}"
      project: "{{ project }}"
      shared: no
@@ -89,7 +108,7 @@
 - name: Add subnet to network
   os_subnet:
      state: present
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      project: "{{ project }}"
      network_name: "{{ network_name }}"
      name: "{{ subnet_name }}"
@@ -106,7 +125,7 @@
 - name: Create router for private and external routing
   os_router:
      state: present
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      name: "{{ router_name }}"
      project: "{{ project }}"
      network: public
