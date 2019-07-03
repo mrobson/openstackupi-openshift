@@ -1,33 +1,5 @@
 ---
 # file: roles/uninstall/tasks/main.yml
-- name: OSP Admin Credentials
-  run_once: true
-  set_fact:
-    os_cloud:
-      auth:
-          auth_url: "{{ auth_url }}"
-          username: "{{ adminuser }}"
-          password: "{{ adminpass }}"
-          project_name: "{{ adminproject }}"
-          user_domain_name: "{{ user_domain }}"
-          project_domain_name: "{{ project_domain }}"
-      auth_type: password
-      region_name: "{{ region }}"
-      auth_version: "{{ auth_api }}"
-- name: OSP Project Credentials
-  run_once: true
-  set_fact:
-    os_project:
-      auth:
-          auth_url: "{{ auth_url }}"
-          username: "{{ ospuser }}"
-          password: "{{ osppassword }}"
-          project_name: "{{ project }}"
-          user_domain_name: "{{ user_domain }}"
-          project_domain_name: "{{ project_domain }}"
-      auth_type: password
-      region_name: "{{ region }}"
-      auth_version: "{{ auth_api }}"
 - name: Delete all instances
   os_server:
      state: absent
@@ -60,12 +32,12 @@
 - name: Delete the user
   run_once: true
   os_user:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      state: absent
      name: "{{ ospuser }}"
 - name: Delete the project
   run_once: true
   os_project:
-     cloud: "{{ os_cloud }}"
+     cloud: "{{ os_admin }}"
      state: absent
      name: "{{ project }}"

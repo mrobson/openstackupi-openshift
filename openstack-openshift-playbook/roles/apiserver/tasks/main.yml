@@ -8,7 +8,7 @@
      network: "{{ network_name }}"
      fixed_ips:
        - ip_address: "{{ hostvars[inventory_hostname]['fixed_ip'] }}"
-- name: Create floating instances
+- name: Create apiserver instance
   os_server:
      state: present
      cloud: "{{ os_project }}"
@@ -21,7 +21,6 @@
        - port-name: "{{ inventory_hostname }}"
      auto_ip: no
      userdata: "{{ lookup('file', hostvars[inventory_hostname]['ignfile']) | string }}"
-  when: hostvars[inventory_hostname]['floating_ip'] is defined
 - name: Assign floating IP
   os_floating_ip:
      state: present
