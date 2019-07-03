@@ -1,5 +1,6 @@
 ---
 # file: openshift.yml
+- import_playbook: openstack_cloud_facts.yml
 - hosts: openshift
   gather_facts: false
   vars_files:

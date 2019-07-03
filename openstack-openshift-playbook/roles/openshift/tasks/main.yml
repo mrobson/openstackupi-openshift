@@ -1,0 +1,36 @@
+---
+# file: roles/openshift/tasks/main.yml
+- name: Create static port allocations
+  os_port:
+     state: present
+     cloud: "{{ os_project }}"
+     name: "{{ inventory_hostname }}"
+     network: "{{ network_name }}"
+     fixed_ips:
+       - ip_address: "{{ hostvars[inventory_hostname]['fixed_ip'] }}"
+- name: Create OpenShift instances
+  os_server:
+     state: present
+     cloud: "{{ os_project }}"
+     name: "{{ inventory_hostname }}"
+     image: "{{ hostvars[inventory_hostname]['image'] }}"
+     key_name: "{{ ospuser }}"
+     flavor: "{{ hostvars[inventory_hostname]['flavor'] }}"
+     wait: yes
+     nics:
+       - port-name: "{{ inventory_hostname }}"
+     auto_ip: no
+     userdata: "{{ lookup('file', hostvars[inventory_hostname]['ignfile']) | string }}"
+- name: Assign floating IP
+  os_floating_ip:
+     state: present
+     cloud: "{{ os_project }}"
+     server: "{{ inventory_hostname }}"
+     reuse: no
+     network: public
+     fixed_address: "{{ hostvars[inventory_hostname]['fixed_ip'] }}"
+     floating_ip_address: "{{ hostvars[inventory_hostname]['floating_ip'] }}"
+     wait: true
+     timeout: 180
+  register: floater
+  when: hostvars[inventory_hostname]['floating_ip'] is defined

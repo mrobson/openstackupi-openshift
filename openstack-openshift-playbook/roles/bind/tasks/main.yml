@@ -1,11 +1,33 @@
 ---
 # file: roles/bind/tasks/main.yml
+- name: Copy resolv.conf to temp backup
+  copy:
+    src: /etc/resolv.conf
+    dest: /etc/resolv.bak
+    remote_src: yes
+- name: Copy named.conf for temporary external name resolution
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
 - name: Install bind
   yum:
+    use_backend: yum
     name:
       - bind
       - bind-utils
     state: present
+- name: Copy resolv.bak to resolv.conf
+  copy:
+    src: /etc/resolv.bak
+    dest: /etc/resolv.conf
+    remote_src: yes
+- name: Remove resolv.bak file
+  file:
+    path: /etc/resolv.bak
+    state: absent
 - name: Copy named conf
   template:
     src: named.conf.j2
@@ -39,7 +61,7 @@
 - name: Copy forward zone
   template:
     src: db.forward.j2
-    dest: /etc/named/zones/db.{{ domain }}
+    dest: /etc/named/zones/db.{{ fwd_domain }}
     owner: root
     group: named
     mode: 0640

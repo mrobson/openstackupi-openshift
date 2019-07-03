@@ -1,6 +1,6 @@
 $ORIGIN .
 $TTL 60
-{{ rev_domain }}.  60   IN    SOA    api.{{ domain }}. admin.{{ domain }}. (
+{{ rev_domain }}.  60   IN    SOA    api.{{ fwd_domain }}. admin.{{ fwd_domain }}. (
                   6        ; Serial
               86400        ; Refresh
                7200        ; Retry
@@ -8,18 +8,18 @@ $TTL 60
                   1 )      ; Negative Cache TTL
 ;
 ; name servers - NS records
-                            NS    api.{{ domain }}.
+                            NS    api.{{ fwd_domain }}.
 
 $ORIGIN {{ rev_domain }}.
 $TTL 1
 ; PTR records
 
-{{ hostvars['api'].fixed_ip.split(".")[3] }}        IN  PTR api.{{ domain }}.
-{{ hostvars['api'].fixed_ip.split(".")[3] }}        IN  PTR api-int.{{ domain }}.
-{{ hostvars['bootstrap'].fixed_ip.split(".")[3] }}  IN  PTR bootstrap.{{ domain }}.
-{{ hostvars['master-0'].fixed_ip.split(".")[3] }}   IN  PTR master-0.{{ domain }}.
-{{ hostvars['master-1'].fixed_ip.split(".")[3] }}   IN  PTR master-1.{{ domain }}.
-{{ hostvars['master-2'].fixed_ip.split(".")[3] }}   IN  PTR master-2.{{ domain }}.
-{{ hostvars['worker-0'].fixed_ip.split(".")[3] }}   IN  PTR worker-0.{{ domain }}.
-{{ hostvars['worker-1'].fixed_ip.split(".")[3] }}   IN  PTR worker-1.{{ domain }}.
-{{ hostvars['worker-2'].fixed_ip.split(".")[3] }}   IN  PTR worker-2.{{ domain }}.
+{{ hostvars['api'].fixed_ip.split(".")[3] }}        IN  PTR api.{{ fwd_domain }}.
+{{ hostvars['api'].fixed_ip.split(".")[3] }}        IN  PTR api-int.{{ fwd_domain }}.
+{{ hostvars['bootstrap'].fixed_ip.split(".")[3] }}  IN  PTR bootstrap.{{ fwd_domain }}.
+{{ hostvars['master-0'].fixed_ip.split(".")[3] }}   IN  PTR master-0.{{ fwd_domain }}.
+{{ hostvars['master-1'].fixed_ip.split(".")[3] }}   IN  PTR master-1.{{ fwd_domain }}.
+{{ hostvars['master-2'].fixed_ip.split(".")[3] }}   IN  PTR master-2.{{ fwd_domain }}.
+{{ hostvars['worker-0'].fixed_ip.split(".")[3] }}   IN  PTR worker-0.{{ fwd_domain }}.
+{{ hostvars['worker-1'].fixed_ip.split(".")[3] }}   IN  PTR worker-1.{{ fwd_domain }}.
+{{ hostvars['worker-2'].fixed_ip.split(".")[3] }}   IN  PTR worker-2.{{ fwd_domain }}.

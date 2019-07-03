@@ -1,0 +1,19 @@
+---
+# file: apiserver.yml
+- include: openstack_cloud_facts.yml
+- hosts: apiserver
+  gather_facts: false
+  vars_files:
+    - "group_vars/openstack"
+  roles:
+    - apiserver
+
+- hosts: utility
+  gather_facts: false
+  user: "{{ user }}"
+  become: true
+  vars_files:
+    - "group_vars/openstack"
+  roles:
+    - bind
+    - loadbalancer

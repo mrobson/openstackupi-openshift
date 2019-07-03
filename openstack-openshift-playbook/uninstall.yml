@@ -1,5 +1,6 @@
 ---
 # file: uninstall.yml
+- include: openstack_cloud_facts.yml
 - hosts: openshift
   gather_facts: false
   vars_files:

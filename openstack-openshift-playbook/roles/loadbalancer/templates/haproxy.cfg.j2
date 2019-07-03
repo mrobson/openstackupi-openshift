@@ -64,30 +64,30 @@ defaults
 listen ingress-http
     bind *:80
     mode tcp
-    server worker-0 worker-0.{{ domain }}:80 check
-    server worker-1 worker-1.{{ domain }}:80 check
-    server worker-2 worker-2.{{ domain }}:80 check
+    server worker-0 worker-0.{{ fwd_domain }}:80 check
+    server worker-1 worker-1.{{ fwd_domain }}:80 check
+    server worker-2 worker-2.{{ fwd_domain }}:80 check
 
 
 listen ingress-https
     bind *:443
     mode tcp
-    server worker-0 worker-0.{{ domain }}:443 check
-    server worker-1 worker-1.{{ domain }}:443 check
-    server worker-2 worker-2.{{ domain }}:443 check
+    server worker-0 worker-0.{{ fwd_domain }}:443 check
+    server worker-1 worker-1.{{ fwd_domain }}:443 check
+    server worker-2 worker-2.{{ fwd_domain }}:443 check
 
 listen api
     bind *:6443
     mode tcp
-    server bootstrap bootstrap.{{ domain }}:6443 check
-    server master-0 master-0.{{ domain }}:6443 check
-    server master-1 master-1.{{ domain }}:6443 check
-    server master-2 master-2.{{ domain }}:6443 check
+    server bootstrap bootstrap.{{ fwd_domain }}:6443 check
+    server master-0 master-0.{{ fwd_domain }}:6443 check
+    server master-1 master-1.{{ fwd_domain }}:6443 check
+    server master-2 master-2.{{ fwd_domain }}:6443 check
 
 listen machine-config-server
     bind *:22623
     mode tcp
-    server bootstrap bootstrap.{{ domain }}:22623 check
-    server master-0 master-0.{{ domain }}:22623 check
-    server master-1 master-1.{{ domain }}:22623 check
-    server master-2 master-2.{{ domain }}:22623 check
+    server bootstrap bootstrap.{{ fwd_domain }}:22623 check
+    server master-0 master-0.{{ fwd_domain }}:22623 check
+    server master-1 master-1.{{ fwd_domain }}:22623 check
+    server master-2 master-2.{{ fwd_domain }}:22623 check

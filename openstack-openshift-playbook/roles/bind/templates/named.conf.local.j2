@@ -1,6 +1,6 @@
-zone "{{ domain }}" {
+zone "{{ fwd_domain }}" {
     type master;
-    file "/etc/named/zones/db.{{ domain }}";
+    file "/etc/named/zones/db.{{ fwd_domain }}";
 };
 zone "{{ rev_domain }}" {
     type master;

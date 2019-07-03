@@ -1,8 +1,0 @@
----
-# file: bind.yml
-- hosts: utility
-  gather_facts: false
-  user: "{{ user }}"
-  become: true
-  roles:
-    - bind

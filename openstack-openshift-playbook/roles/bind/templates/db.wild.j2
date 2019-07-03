@@ -1,11 +1,11 @@
 $ORIGIN {{ wild_domain }}.
 $TTL 60
-{{ wild_domain }}.  60   IN    SOA    api.{{ domain }}. admin.{{ domain }}. (
+{{ wild_domain }}.  60   IN    SOA    api.{{ fwd_domain }}. admin.{{ fwd_domain }}. (
                                             7           ; Serial
                                             86400       ; Refresh
                                             7200        ; Retry
                                             2419200     ; Expire
                                             1    )      ; Negative Cache TTL
 
-@                                   IN    NS    api.{{ domain }}.
-*                                   IN    CNAME api.{{ domain }}.
+@                                   IN    NS    api.{{ fwd_domain }}.
+*                                   IN    CNAME api.{{ fwd_domain }}.

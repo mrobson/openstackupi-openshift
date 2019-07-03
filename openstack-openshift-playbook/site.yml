@@ -1,6 +1,5 @@
 ---
 # file: site.yml
--  import_playbook: loadbalancer.yml
--  import_playbook: bind.yml
 -  import_playbook: openstack.yml
+-  import_playbook: apiserver.yml
 -  import_playbook: openshift.yml

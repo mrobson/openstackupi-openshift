@@ -1,0 +1,33 @@
+---
+# file: openstack_cloud_facts.yml
+- hosts: all
+  gather_facts: no
+  vars_files:
+    - "group_vars/openstack"
+  tasks:
+  - name: OSP Project Credentials
+    set_fact:
+      os_project:
+        auth:
+            auth_url: "{{ auth_url }}"
+            username: "{{ ospuser }}"
+            password: "{{ osppassword }}"
+            project_name: "{{ project }}"
+            user_domain_name: "{{ user_domain }}"
+            project_domain_name: "{{ project_domain }}"
+        auth_type: password
+        region_name: "{{ region }}"
+        auth_version: "{{ auth_api }}"
+  - name: OSP Admin Credentials
+    set_fact:
+      os_admin:
+        auth:
+            auth_url: "{{ auth_url }}"
+            username: "{{ adminuser }}"
+            password: "{{ adminpass }}"
+            project_name: "{{ adminproject }}"
+            user_domain_name: "{{ user_domain }}"
+            project_domain_name: "{{ project_domain }}"
+        auth_type: password
+        region_name: "{{ region }}"
+        auth_version: "{{ auth_api }}"
