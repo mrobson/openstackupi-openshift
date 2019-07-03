@@ -7,7 +7,6 @@ region: regionOne
 auth_api: 3
 adminproject: admin
 project: mrobsonocp4
-domain: Default
 ospuser: user
 osppassword: password
 email: mrobson@redhat.com
