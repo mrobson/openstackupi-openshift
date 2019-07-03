@@ -5,4 +5,4 @@
   vars_files:
     - "group_vars/openstack"
   roles:
-    - ocpinstances
+    - openshift

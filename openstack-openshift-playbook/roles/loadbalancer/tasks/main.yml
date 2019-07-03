@@ -22,7 +22,7 @@
   local_action:  
     module: template
     src: bootstrap-append.ign.j2 
-    dest: ./roles/ocpinstances/files/bootstrap-append.ign
+    dest: ./roles/openshift/files/bootstrap-append.ign
   become: no
 - name: Create /var/www/html directory
   file:
