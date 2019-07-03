@@ -1,0 +1,71 @@
+---
+# file: roles/uninstall/tasks/main.yml
+- name: OSP Admin Credentials
+  run_once: true
+  set_fact:
+    os_cloud:
+      auth:
+          auth_url: "{{ auth_url }}"
+          username: "{{ adminuser }}"
+          password: "{{ adminpass }}"
+          project_name: "{{ adminproject }}"
+          user_domain_name: "{{ user_domain }}"
+          project_domain_name: "{{ project_domain }}"
+      auth_type: password
+      region_name: "{{ region }}"
+      auth_version: "{{ auth_api }}"
+- name: OSP Project Credentials
+  run_once: true
+  set_fact:
+    os_project:
+      auth:
+          auth_url: "{{ auth_url }}"
+          username: "{{ ospuser }}"
+          password: "{{ osppassword }}"
+          project_name: "{{ project }}"
+          user_domain_name: "{{ user_domain }}"
+          project_domain_name: "{{ project_domain }}"
+      auth_type: password
+      region_name: "{{ region }}"
+      auth_version: "{{ auth_api }}"
+- name: Delete all instances
+  os_server:
+     state: absent
+     cloud: "{{ os_project }}"
+     name: "{{ inventory_hostname }}"
+     delete_fip: yes
+- name: Delete all port allocations
+  os_port:
+     state: absent
+     cloud: "{{ os_project }}"
+     name: "{{ inventory_hostname }}"
+- name: Delete the router
+  run_once: true
+  os_router:
+     cloud: "{{ os_project }}"
+     state: absent
+     name: "{{ router_name }}"
+- name: Delete the subnet
+  run_once: true
+  os_subnet:
+     cloud: "{{ os_project }}"
+     state: absent
+     name: "{{ subnet_name }}"
+- name: Delete the network
+  run_once: true
+  os_network:
+     cloud: "{{ os_project }}"
+     state: absent
+     name: "{{ network_name }}"
+- name: Delete the user
+  run_once: true
+  os_user:
+     cloud: "{{ os_cloud }}"
+     state: absent
+     name: "{{ ospuser }}"
+- name: Delete the project
+  run_once: true
+  os_project:
+     cloud: "{{ os_cloud }}"
+     state: absent
+     name: "{{ project }}"
