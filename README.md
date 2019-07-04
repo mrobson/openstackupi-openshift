@@ -12,7 +12,7 @@ This is a fully automated, self-contained, OpenShift 4 Baremetal UPI deployment 
 
 For more information see:
 
-* <https://docs.openshift.com/container-platform/4.1/installing/installing_bare_metal/installing-bare-metal.html#installing-bare-metal/> for more information on the baremetal install process
+* [OpenShift 4.1 Baremetal UPI Documentation](https://docs.openshift.com/container-platform/4.1/installing/installing_bare_metal/installing-bare-metal.html#installing-bare-metal/)
 
 System Requirements
 -------------------
@@ -35,7 +35,7 @@ Steps
 git clone https://github.com/mrobson/openstackupi-openshift.git
 ```
 
-2. Log into your account at the [RedHat Cloud Managment Portal](//cloud.redhat.com/openshift/install/metal/user-provisioned/) and download the user provisioned baremetal openshift-install binary
+2. Log into your account at the [RedHat Cloud Managment Portal](https://cloud.redhat.com/openshift/install/metal/user-provisioned/) and download the user provisioned baremetal openshift-install binary
 
 3. Untar and move the downloaded binary to the root directory of the cloned openstackupi-openshift project
 ```
@@ -97,7 +97,7 @@ wild_domain: apps.mrobson.mattshift.lab
 forward_dns: 10.5.30.45
 ```
 
-    - group_vars/openstack
+        - group_vars/openstack
 
 ```text
 # openstack auth URL
