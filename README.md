@@ -177,10 +177,10 @@ Playbooks
 
 The setup and installation master playbook consists of 4 playbooks with 6 roles
 
-1. Master Playbook: This imports the 4 main playbooks for the setup and install
+1. Install Master Playbook: This imports the 4 main playbooks for the setup and install
     - `site.yml`
 
-2. Playbooks:
+2. Install Playbooks
     - `preflight.yml`: Checks some prerequisites and generates fresh ignition configs for the installation
       - role: `preflight`
     - `openstack.yml`: Builds the openstack environment - project, quotas, user, roles, flavors, keypair, security groups, network, subnet and router
@@ -191,6 +191,12 @@ The setup and installation master playbook consists of 4 playbooks with 6 roles
       - role: `loadbalancer`
     - `openshift.yml`: Creates the openshift environment - static port allocations, 7 instances and any required floating ips for external access - bootstrap, master0-2, worker0-2
       - role: `openshift`
+
+The uninstall playbook has 1 role
+
+3. Uninstall Playbook
+    - `uninstall.yml`: Deletes all of the instances, floating ips, port allocations, router, subnet, network, user and project
+      - role: `uninstall`
 
 API and Console Access
 ----------------------
@@ -239,3 +245,10 @@ INFO To access the cluster as the system:admin user when using 'oc', run 'export
 INFO Access the OpenShift web-console here: https://console-openshift-console.apps.mrobson.mattshift.lab
 INFO Login to the console with user: kubeadmin, password: <password>
 ```
+
+Uninstall
+---------
+
+This removes the entire OpenShift cluster and all of the openstack objects
+
+> ansible-playbook -i hosts uninstall.yml
