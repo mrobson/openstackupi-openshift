@@ -84,7 +84,7 @@ sshKey: |
 
 6. Configure your the group variable for the installation
     - group_vars/all
-```
+```text
 # sudo user for the apiserver instance
 user: centos
 # forward domain for the cluster
@@ -96,8 +96,10 @@ wild_domain: apps.mrobson.mattshift.lab
 # forwarder to access the internet for your prviate DNS server
 forward_dns: 10.5.30.45
 ```
+
     - group_vars/openstack
-```
+
+```text
 # openstack auth URL
 auth_url:  http://<ip>:<port>
 # openstack cluster admin user
