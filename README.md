@@ -143,13 +143,13 @@ router_name: ocp4_router
 external_network_name: pubic
 ```
 
-7. Setup the ansible hosts file 
+7. Setup the ansible hosts file for the flavor, image and fixed_ip (private openstack network) for your openshift cluster
 
 ```
 [utility]
 
 [apiserver]
-api flavor=m1.medium ignfile=empty.ign image=CentOS7 floating_ip=true fixed_ip={{ subnet }}.10 ansible_connection=local
+api flavor=ocpcompute ignfile=empty.ign image=CentOS7 floating_ip=true fixed_ip=10.10.11.10 ansible_connection=local
 
 [openshift]
 bootstrap flavor=ocpcontroller ignfile=bootstrap-append.ign image=rhcos-410.8.20190520.1 floating_ip=true fixed_ip=10.10.11.30 ansible_connection=local
