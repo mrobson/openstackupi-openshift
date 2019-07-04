@@ -1,16 +1,16 @@
 [utility]
 
 [apiserver]
-api flavor=m1.medium ignfile=empty.ign image=CentOS7 floating_ip=true fixed_ip=10.10.11.10 ansible_connection=local
+api flavor=ocpworker ignfile=empty.ign image=CentOS7 floating_ip=true fixed_ip=10.10.11.10 ansible_connection=local
 
 [openshift]
-bootstrap flavor=ocpcontroller ignfile=bootstrap-append.ign image=rhcos-410.8.20190520.1 floating_ip=true fixed_ip=10.10.11.30 ansible_connection=local
-master-0 flavor=ocpcontroller ignfile=master.ign image=rhcos-410.8.20190520.1 floating_ip=true fixed_ip=10.10.11.31 ansible_connection=local
-master-1 flavor=ocpcontroller ignfile=master.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.32 ansible_connection=local
-master-2 flavor=ocpcontroller ignfile=master.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.33 ansible_connection=local
-worker-0 flavor=ocpcompute ignfile=worker.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.34 ansible_connection=local
-worker-1 flavor=ocpcompute ignfile=worker.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.35 ansible_connection=local
-worker-2 flavor=ocpcompute ignfile=worker.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.36 ansible_connection=local
+bootstrap flavor=ocpmaster ignfile=bootstrap-append.ign image=rhcos-410.8.20190520.1 floating_ip=true fixed_ip=10.10.11.30 ansible_connection=local
+master-0 flavor=ocpmaster ignfile=master.ign image=rhcos-410.8.20190520.1 floating_ip=true fixed_ip=10.10.11.31 ansible_connection=local
+master-1 flavor=ocpmaster ignfile=master.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.32 ansible_connection=local
+master-2 flavor=ocpmaster ignfile=master.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.33 ansible_connection=local
+worker-0 flavor=ocpworker ignfile=worker.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.34 ansible_connection=local
+worker-1 flavor=ocpworker ignfile=worker.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.35 ansible_connection=local
+worker-2 flavor=ocpworker ignfile=worker.ign image=rhcos-410.8.20190520.1 fixed_ip=10.10.11.36 ansible_connection=local
 
 [openstack]
 localhost ansible_connection=local

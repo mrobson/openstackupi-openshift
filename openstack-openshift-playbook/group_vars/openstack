@@ -24,6 +24,16 @@ osppassword: password
 email: address@adminuser.com
 # ssh key for openshift cluster project keypair
 ssh_key: /path/to/.ssh/id_rsa.pub
+# name of the flavor to create for the masters
+master_flavor_name: ocpmaster
+# name of the flavor to create for the workers
+worker_flavor_name: ocpworker
+# name of coreos image - suggest using fully qualified release naming
+coreos_image_name: rhcos-410.8.20190520.1
+# location of CoreOS qcow2 image
+coreos_image_location: /Users/matthewrobson/Downloads/rhcos-410.8.20190520.1-openstack.qcow2
+# flavor for apiserver
+apiserver_flavor: CentOS7
 # name of the private network for the openshift cluster
 network_name: ocp4_network
 # name of the private subnet for the openshift cluster

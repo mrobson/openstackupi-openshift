@@ -71,6 +71,31 @@
      port_range_min: 22
      port_range_max: 22
      remote_ip_prefix: 0.0.0.0/0
+- name: Create master flavor
+  os_nova_flavor:
+     state: present
+     cloud: "{{ os_admin }}"
+     name: "{{ master_flavor_name }}"
+     ram: 16384
+     vcpus: 8
+     disk: 50
+- name: Create worker flavor
+  os_nova_flavor:
+     state: present
+     cloud: "{{ os_admin }}"
+     name: "{{ worker_flavor_name }}"
+     ram: 8192
+     vcpus: 4
+     disk: 100
+- name: Create CoreOS image
+  os_image:
+     state: present
+     cloud: "{{ os_admin }}"
+     name: "{{ coreos_image_name }}"
+     container_format: bare
+     disk_format: qcow2
+     filename: "{{ coreos_image_location }}"
+     is_public: yes
 - name: Add network
   os_network:
      state: present
