@@ -1,5 +1,5 @@
 nameserver {{ forward_dns }}
-nameserver 10.10.11.2
-nameserver 10.10.11.3
-nameserver 10.10.11.4
+nameserver {{ subnet }}.2
+nameserver {{ subnet }}.3
+nameserver {{ subnet }}.4
 search localdomain

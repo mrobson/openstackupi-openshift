@@ -1,9 +1,10 @@
+# sudo user for the apiserver instance
 user: centos
-domain: mrobson.mattshift.lab
+# forward domain for the cluster
+fwd_domain: mrobson.mattshift.lab
+# reverse domain for the cluster
 rev_domain: 11.10.10.in-addr.arpa
+# wildcard domain for the cluster
 wild_domain: apps.mrobson.mattshift.lab
-subnet: 10.10.11.0
-cidr: /24
-utility_ip: 10.10.11.10
+# forwarder to access the internet for your prviate DNS server
 forward_dns: 10.5.30.45
-project: mrobsonocp4

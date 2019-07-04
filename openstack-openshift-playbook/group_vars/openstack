@@ -1,19 +1,38 @@
-auth_url: http://<ip>:<port>
-adminuser: user
+# openstack auth URL
+auth_url:  http://<ip>:<port>
+# openstack cluster admin user
+adminuser: admin
+# openstack cluster admin password
 adminpass: password
+# openstack user domain
 user_domain: Default
+# openstack project domain
 project_domain: default
+# openstack region
 region: regionOne
+# openstack auth api version
 auth_api: 3
+# openstack admin project name
 adminproject: admin
+# name of project to create for openshift cluster
 project: mrobsonocp4
+# name of user to create for openshift cluster project
 ospuser: user
+# password for openshift cluster project user
 osppassword: password
-email: mrobson@redhat.com
-ssh_key: ~/.ssh/id_rsa.pub
+# email for openshift cluster project user
+email: address@adminuser.com
+# ssh key for openshift cluster project keypair
+ssh_key: /path/to/.ssh/id_rsa.pub
+# name of the private network for the openshift cluster
 network_name: ocp4_network
+# name of the private subnet for the openshift cluster
 subnet_name: ocp4_subnet
-gateway_ip: 10.10.11.1
-allocation_pool_start: 10.10.11.2
-allocation_pool_end: 10.10.11.254
+# subnet address for the openshift cluster
+subnet: 10.10.11
+# cidr for the openshift cluster subnet
+cidr: /24
+# name of the openshift cluster network router
 router_name: ocp4_router
+# name of the external openstack network
+external_network_name: pubic

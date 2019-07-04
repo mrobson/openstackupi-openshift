@@ -86,23 +86,23 @@
      project: "{{ project }}"
      network_name: "{{ network_name }}"
      name: "{{ subnet_name }}"
-     cidr: "{{ subnet }}{{ cidr }}"
-     gateway_ip: "{{ gateway_ip }}"
-     allocation_pool_start: "{{ allocation_pool_start }}"
-     allocation_pool_end: "{{ allocation_pool_end }}"
+     cidr: "{{ subnet }}.0{{ cidr }}"
+     gateway_ip: "{{ subnet }}.1"
+     allocation_pool_start: "{{ subnet }}.2"
+     allocation_pool_end: "{{ subnet }}.254"
      ip_version: 4
      dns_nameservers:
         - "{{ hostvars['api'].fixed_ip }}"
-        - 10.10.11.2
-        - 10.10.11.3
-        - 10.10.11.4
+        - "{{ subnet }}.2"
+        - "{{ subnet }}.3"
+        - "{{ subnet }}.4"
 - name: Create router for private and external routing
   os_router:
      state: present
      cloud: "{{ os_admin }}"
      name: "{{ router_name }}"
      project: "{{ project }}"
-     network: public
+     network: "{{ external_network_name }}"
      enable_snat: yes
      interfaces:
         - "{{ subnet_name }}"

@@ -11,9 +11,9 @@ $TTL 60
                                 A    {{ hostvars['api'].fixed_ip }}
 ;
 
-$ORIGIN mrobson.mattshift.lab.
+$ORIGIN {{ fwd_domain }}.
 $TTL 1
-; 10.10.11.0/24 - A records
+; {{ subnet }}.0/{{ cidr }} - A records
 api.{{ fwd_domain }}.          IN    A    {{ hostvars['api'].fixed_ip }}
 api-int.{{ fwd_domain }}.      IN    A    {{ hostvars['api'].fixed_ip }}
 bootstrap.{{ fwd_domain }}.    IN    A    {{ hostvars['bootstrap'].fixed_ip }}
