@@ -74,15 +74,13 @@ sshKey: |
   ssh-rsa <key>
 ```
 
-5. The baseDomain and cluster name form your full domain for your cluster
+5. The `baseDomain` and cluster `name` form your full domain for the cluster
     - `baseDomain: mattshift.lab`
     - `name: mrobson`
     - `full domain: *.mrobson.mattshift.lab`
     - `master-0.mrobson.mattshift.lab`
 
-6. Configure your the group variables for the installation
-
-> cd openstack-openshift-playbook
+6. From the `openstack-openshift-playbook` directory, configure your group variables for the installation
 
 > vi group_vars/all
 
@@ -177,24 +175,24 @@ Playbooks
 The setup and installation master playbook consists of 4 playbooks with 6 roles
 
 1. Master Playbook: This imports the 4 main playbooks for the setup and install
-    - site.yml
+    - `site.yml`
 
 2. Playbooks:
-    - preflight.yml: Checks some prerequisites and generates fresh ignition configs for the installation
-      - role: preflight
-    - openstack.yml: Builds the openstack environment - project, quotas, user, roles, flavors, keypair, security groups, network, subnet and router
-      - role: openstack
-    - apiserver.yml: Creates and configures the apiserver for the environment - osp api instance with external access, private dns server and haproxy loadbalancer for openshift
-      - role: apiserver
-      - role: bind
-      - role: loadbalancer
-    - openshift.yml: Creates the openshift environment - static port allocations, 7 instances and any required floating ips for external access - bootstrap, master0-2, worker0-2
-      - role: openshift
+    - `preflight.yml`: Checks some prerequisites and generates fresh ignition configs for the installation
+      - role: `preflight`
+    - `openstack.yml`: Builds the openstack environment - project, quotas, user, roles, flavors, keypair, security groups, network, subnet and router
+      - role: `openstack`
+    - `apiserver.yml`: Creates and configures the apiserver for the environment - osp api instance with external access, private dns server and haproxy loadbalancer for openshift
+      - role: `apiserver`
+      - role: `bind`
+      - role: `loadbalancer`
+    - `openshift.yml`: Creates the openshift environment - static port allocations, 7 instances and any required floating ips for external access - bootstrap, master0-2, worker0-2
+      - role: `openshift`
 
 API and Console Access
 ----------------------
 
-If you do not have proper name resolution from your local machine, you can setup for local hosts like so:
+If you do not have proper name resolution from your local machine, you can setup your local hosts file for console and cli access
 
 ```
 <apiserver_public_ip>    api.mrobson.mattshift.lab
@@ -210,7 +208,9 @@ From the `openstackupi-openshift` directory
 > export KUBECONFIG=./installer/auth/kubeconfig
 
 > oc whoami
-`system:admin`
+```
+system:admin
+```
 
 Checking Cluster Install Status
 -------------------------------
@@ -234,5 +234,5 @@ INFO Waiting up to 10m0s for the openshift-console route to be created...
 INFO Install complete!
 INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/path/to/openstackupi-openshift/installer/auth/kubeconfig'
 INFO Access the OpenShift web-console here: https://console-openshift-console.apps.mrobson.mattshift.lab
-INFO Login to the console with user: kubeadmin, password: 5stqA-mfRPK-HxLd9-orSCA
+INFO Login to the console with user: kubeadmin, password: <password>
 ```
