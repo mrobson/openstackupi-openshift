@@ -1,5 +1,6 @@
 ---
 # file: site.yml
+-  import_playbook: preflight.yml
 -  import_playbook: openstack.yml
 -  import_playbook: apiserver.yml
 -  import_playbook: openshift.yml

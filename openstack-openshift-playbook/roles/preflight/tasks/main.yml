@@ -1,0 +1,28 @@
+---
+# file: roles/preflight/tasks/main.yml
+- name: Check for openshift-install
+  stat:
+     path: "{{ playbook_dir }}/../openshift-install"
+  register: installer
+  ignore_errors: true
+- name: Fail if openshift-install does not exist
+  fail:
+     msg: "The openshift-install binary does not exist in openstackupi-openshift"
+  when: installer.stat.exists == False
+- name: Create fresh ignition configs
+  shell: "{{ playbook_dir }}/../create-ignition-configs.sh >/dev/null 2>&1"
+  args:
+     chdir: "{{ playbook_dir }}/../"
+  register: ignition
+  ignore_errors: true
+- name: Exit if ignition config creation fails
+  fail:
+     msg: "We failed to create new ignition configs"
+  when: ignition.failed == true
+- name: Check for the oc binary
+  shell: command -v oc
+  register: oc
+  ignore_errors: true
+- name: debug
+  debug:
+     msg: "{% if oc.failed == false %} Excellent! The oc binary is installed at {{ oc.stdout }}!{% else %} No oc binary found, consider installing it locally or adding it to your path!{% endif %}"

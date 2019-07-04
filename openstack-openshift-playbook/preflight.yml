@@ -1,0 +1,7 @@
+---
+# file: apiserver.yml
+- hosts: openstack
+  gather_facts: false
+  roles:
+    - preflight
+
