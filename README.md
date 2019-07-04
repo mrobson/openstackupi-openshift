@@ -37,13 +37,13 @@ git clone https://github.com/mrobson/openstackupi-openshift.git
 
 2. Log into your account at the [RedHat Cloud Managment Portal](https://cloud.redhat.com/openshift/install/metal/user-provisioned/) and download the user provisioned baremetal openshift-install binary
 
-3. Untar and move the downloaded binary to the root directory of the cloned openstackupi-openshift project
+3. Untar and move the downloaded binary to the root directory of the cloned `openstackupi-openshift` project
 ```
 tar zxvf openshift-install-<system>-<version>.tar.gz
 mv openshift-install-<system>-<version> /path/to/openstackupi-openshift/openshift-install
 ```
 
-4. Create your openstack-upi-install-config.yml file
+4. Create your `openstack-upi-install-config.yml` file
     - Set your baseDomain
     - Set your cluster name
     - Set your pullSecret
@@ -77,19 +77,17 @@ sshKey: |
 ```
 
 5. The baseDomain and cluster name form your full domain for your cluster
-    - baseDomain: mattshift.lab
-    - name: mrobson
-    - full domain: *.mrobson.mattshift.lab
-    - master-0.mrobson.mattshift.lab
+    - `baseDomain: mattshift.lab`
+    - `name: mrobson`
+    - `full domain: *.mrobson.mattshift.lab`
+    - `master-0.mrobson.mattshift.lab`
 
 6. Configure your the group variables for the installation
 
-```
-cd openstack-openshift-playbook
-```
-```
-vi group_vars/all
-```
+> cd openstack-openshift-playbook
+
+> vi group_vars/all
+
 ```Text
 # sudo user for the apiserver instance
 user: centos
@@ -102,9 +100,9 @@ wild_domain: apps.mrobson.mattshift.lab
 # forwarder to access the internet for your prviate DNS server
 forward_dns: 10.5.30.45
 ```
-```
-vi group_vars/openstack
-```
+
+> vi group_vars/openstack
+
 ```Text
 # openstack auth URL
 auth_url:  http://<ip>:<port>
@@ -148,7 +146,5 @@ external_network_name: pubic
 
 7. Run the installation playbook
 
-```
-ansible-playbook -i hosts site.yml
-```
+> ansible-playbook -i hosts site.yml
 
