@@ -16,10 +16,12 @@ For more information see:
 
 System Requirements
 -------------------
-Before building out your cluster, you will need:
-* openshift-install binary
-* anible
-* oc and kubectl binary
+
+Before building out your cluster, you will need
+
+* `openshift-install` binary
+* ansible
+* `oc` binary
 
 Prerequisites
 -------------
@@ -38,8 +40,9 @@ Steps
 
 3. Untar and move the downloaded binary to the root directory of the cloned `openstackupi-openshift` project
 
-> tar zxvf openshift-install-<system>-<version>.tar.gz
-> mv openshift-install-<system>-<version> /path/to/openstackupi-openshift/openshift-install
+> tar zxvf openshift-install-system-version.tar.gz
+
+> mv openshift-install-system-version /path/to/openstackupi-openshift/openshift-install
 
 4. Create your `openstack-upi-install-config.yml` file
     - Set your `baseDomain`
