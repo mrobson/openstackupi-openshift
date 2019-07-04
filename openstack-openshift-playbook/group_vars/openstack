@@ -35,4 +35,4 @@ cidr: /24
 # name of the openshift cluster network router
 router_name: ocp4_router
 # name of the external openstack network
-external_network_name: pubic
+external_network_name: public
