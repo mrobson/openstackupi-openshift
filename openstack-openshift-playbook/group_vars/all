@@ -10,3 +10,5 @@ wild_domain: apps.mrobson.mattshift.lab
 forward_dns: 10.5.30.45
 # update the /etc/hosts file for cli and console resolution
 update_hosts: true
+# run the role to wait for bootstrap and the install to complete - requires local machine to be able hit the API loadbalancer
+wait_for_complete: true

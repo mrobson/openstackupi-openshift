@@ -7,3 +7,4 @@
     - "group_vars/openstack"
   roles:
     - openshift
+    - { role: 'waitforcomplete', when: wait_for_complete|bool }
