@@ -8,6 +8,14 @@
   roles:
     - apiserver
 
+- hosts: localhost
+  gather_facts: false
+  become: true
+  vars_files:
+    - "group_vars/openstack"
+  roles:
+    - { role: 'hosts', when: update_hosts|bool }
+
 - hosts: utility
   gather_facts: false
   user: "{{ user }}"

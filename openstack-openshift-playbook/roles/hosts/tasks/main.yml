@@ -1,0 +1,23 @@
+---
+# file: roles/hosts/tasks/main.yml
+- name: Set
+  set_fact:
+    apiserver: "{% for host in groups['utility'] %}{{ hostvars[host]['inventory_hostname'] }}{% endfor %}"
+- name: Update hosts file for api
+  lineinfile:
+     state: present
+     path: /etc/hosts
+     regex: ".*api.*"
+     line: "{{ apiserver }}     api.{{ fwd_domain }}"
+- name: Update hosts file for console
+  lineinfile:
+     state: present
+     path: /etc/hosts
+     regex: ".*console-openshift-console.*"
+     line: "{{ apiserver }}     console-openshift-console.{{ wild_domain }}"
+- name: Update hosts file for oauth
+  lineinfile:
+     state: present
+     path: /etc/hosts
+     regex: ".*oauth-openshift.*"
+     line: "{{ apiserver }}     oauth-openshift.{{ wild_domain }}"

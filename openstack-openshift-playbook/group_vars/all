@@ -8,3 +8,5 @@ rev_domain: 11.10.10.in-addr.arpa
 wild_domain: apps.mrobson.mattshift.lab
 # forwarder to access the internet for your prviate DNS server
 forward_dns: 10.5.30.45
+# update the /etc/hosts file for cli and console resolution
+update_hosts: true
