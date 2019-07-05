@@ -19,6 +19,12 @@
   fail:
      msg: "We failed to create new ignition configs"
   when: ignition.failed == true
+- name: Set KUBECONFIG for CLI
+  environment:
+     KUBECONFIG: "{{ playbook_dir }}/installer/auth/kubeconfig"
+- name: debug
+  debug:
+     var: lookup('env','KUBECONFIG')
 - name: Check for the oc binary
   shell: command -v oc
   register: oc

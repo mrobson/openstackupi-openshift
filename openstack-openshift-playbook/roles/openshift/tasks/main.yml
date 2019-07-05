@@ -34,3 +34,50 @@
      timeout: 180
   register: floater
   when: hostvars[inventory_hostname]['floating_ip'] is defined
+- name: Wait for bootstrap to complete
+  run_once: true
+  shell: "{{ playbook_dir }}/../openshift-install --dir=installer wait-for bootstrap-complete"
+  args:
+     chdir: "{{ playbook_dir }}/../"
+  register: bootstrap
+  until: bootstrap.rc == 0
+  retries: 1
+  delay: 1
+  ignore_errors: true
+- name: Delete the bootstrap instance
+  run_once: true
+  os_server:
+     state: absent
+     cloud: "{{ os_project }}"
+     name: bootstrap
+     delete_fip: yes
+- name: Delete the bootstrap port
+  run_once: true
+  os_port:
+     state: absent
+     cloud: "{{ os_project }}"
+     name: bootstrap
+- name: Patch the image-registry to use emptyDir
+  run_once: true
+  shell: "oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"emptyDir":{}}}}'"
+  args:
+     chdir: "{{ playbook_dir }}"
+  register: patch
+  until: patch.rc == 0
+  retries: 60
+  delay: 10
+  ignore_errors: true
+- name: Wait for install to complete
+  run_once: true
+  shell: "{{ playbook_dir }}/../openshift-install --dir=installer wait-for install-complete"
+  args:
+     chdir: "{{ playbook_dir }}/../"
+  register: install
+  until: install.rc == 0
+  retries: 1
+  delay: 1
+  ignore_errors: true
+- name: Print install-complete
+  run_once: true
+  debug:
+     var: install.stderr_lines
