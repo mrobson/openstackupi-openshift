@@ -41,3 +41,22 @@
      cloud: "{{ os_admin }}"
      state: absent
      name: "{{ project }}"
+- name: Delete master flavor
+  run_once: true
+  os_nova_flavor:
+     state: absent
+     cloud: "{{ os_admin }}"
+     name: "{{ master_flavor_name }}"
+  when: remove_image_and_flavors|bool
+- name: Delete worker flavor
+  os_nova_flavor:
+     state: absent
+     cloud: "{{ os_admin }}"
+     name: "{{ worker_flavor_name }}"
+  when: remove_image_and_flavors|bool
+- name: Delete CoreOS image
+  os_image:
+     state: absent
+     cloud: "{{ os_admin }}"
+     name: "{{ coreos_image_name }}"
+  when: remove_image_and_flavors|bool

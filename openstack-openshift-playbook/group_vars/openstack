@@ -46,3 +46,5 @@ cidr: /24
 router_name: ocp4_router
 # name of the external openstack network
 external_network_name: public
+# flag to also remove the CoreOS image and OCP flavors 
+remove_image_and_flavors: false
