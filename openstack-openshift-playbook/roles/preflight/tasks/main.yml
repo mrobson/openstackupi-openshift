@@ -23,8 +23,6 @@
   copy:
     src: "{{ playbook_dir }}/../installer/auth/kubeconfig"
     dest: ~/.kube/config
-- name: whoami
-  shell: "oc whoami"
 - name: Check for the oc binary
   shell: command -v oc
   register: oc

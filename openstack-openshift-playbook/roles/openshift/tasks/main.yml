@@ -17,6 +17,7 @@
      key_name: "{{ ospuser }}"
      flavor: "{{ hostvars[inventory_hostname]['flavor'] }}"
      wait: yes
+     timeout: 300
      nics:
        - port-name: "{{ inventory_hostname }}"
      auto_ip: no
