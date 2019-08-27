@@ -29,6 +29,7 @@
      cloud: "{{ os_project }}"
      state: absent
      name: "{{ network_name }}"
+     project: "{{ project }}"
 - name: Delete the user
   run_once: true
   os_user:

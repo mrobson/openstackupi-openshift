@@ -18,6 +18,7 @@
         auth_type: password
         region_name: "{{ region }}"
         auth_version: "{{ auth_api }}"
+        cacert: "{{ lookup( 'env', 'PWD') }}/roles/openstack/files/ca.crt.pem"
   - name: OSP Admin Credentials
     set_fact:
       os_admin:
@@ -31,3 +32,4 @@
         auth_type: password
         region_name: "{{ region }}"
         auth_version: "{{ auth_api }}"
+        cacert: "{{ lookup( 'env', 'PWD') }}/roles/openstack/files/ca.crt.pem"

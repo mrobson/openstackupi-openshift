@@ -99,7 +99,7 @@
 - name: Add network
   os_network:
      state: present
-     cloud: "{{ os_admin }}"
+     cloud: "{{ os_project }}"
      name: "{{ network_name }}"
      project: "{{ project }}"
      shared: no
@@ -107,7 +107,7 @@
 - name: Add subnet to network
   os_subnet:
      state: present
-     cloud: "{{ os_admin }}"
+     cloud: "{{ os_project }}"
      project: "{{ project }}"
      network_name: "{{ network_name }}"
      name: "{{ subnet_name }}"
@@ -124,7 +124,7 @@
 - name: Create router for private and external routing
   os_router:
      state: present
-     cloud: "{{ os_admin }}"
+     cloud: "{{ os_project }}"
      name: "{{ router_name }}"
      project: "{{ project }}"
      network: "{{ external_network_name }}"
